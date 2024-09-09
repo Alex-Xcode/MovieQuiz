@@ -145,11 +145,11 @@ final class MovieQuizViewController: UIViewController {
             }
 
             // Преобразование HEX-кодов в UIColor
-            let customGreen = UIColor(red: 0x60/255.0, green: 0xC2/255.0, blue: 0x8E/255.0, alpha: 1.0)  // Зеленый цвет #60C28E
-            let customRed = UIColor(red: 0xF5/255.0, green: 0x6B/255.0, blue: 0x6C/255.0, alpha: 1.0)    // Красный цвет #F56B6C
+            let ypGreen = UIColor(red: 0x60/255.0, green: 0xC2/255.0, blue: 0x8E/255.0, alpha: 1.0)  // Зеленый цвет #60C28E
+            let ypRed = UIColor(red: 0xF5/255.0, green: 0x6B/255.0, blue: 0x6C/255.0, alpha: 1.0)    // Красный цвет #F56B6C
 
             // Устанавливаем цвет рамки
-            imageView.layer.borderColor = isCorrect ? customGreen.cgColor : customRed.cgColor
+            imageView.layer.borderColor = isCorrect ? ypGreen.cgColor : ypRed.cgColor
 
             changeStateButton(isEnable: false) // Отключить кнопки после ответа
 
