@@ -4,6 +4,10 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 8
+        imageView.layer.borderColor = UIColor.clear.cgColor
         showNextQuestion()  // Показать первый вопрос при загрузке
     }
     // Структура вопроса
@@ -102,13 +106,11 @@ final class MovieQuizViewController: UIViewController {
     private func formatQuestionNumber() -> String {
         return "\(currentQuestionIndex + 1)/\(questions.count)"
     }
-
     private func show(quizStep: QuizStepViewModel) {
         imageView.image = quizStep.image
         textLabel.text = quizStep.question
         counterLabel.text = quizStep.questionNumber
     }
-
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
             title: result.title,
@@ -126,6 +128,9 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     private func showNextQuestion() {
+        // Перед показом нового вопроса сбрасываем цвет рамки на прозрачный
+        imageView.layer.borderColor = UIColor.clear.cgColor
+
         if currentQuestionIndex < questions.count {
             let currentQuestion = questions[currentQuestionIndex]
             let quizStep = convert(model: currentQuestion)
@@ -134,20 +139,22 @@ final class MovieQuizViewController: UIViewController {
             showFinalResults()
         }
     }
-
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
-            correctAnswers += 1
-        }
+                correctAnswers += 1  // Если ответ правильный, увеличиваем счётчик правильных ответов
+            }
 
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 8
-        imageView.layer.cornerRadius = 20  // Добавляем закругление углов
-        imageView.layer.borderColor = isCorrect ? UIColor.green.cgColor : UIColor.red.cgColor
-        
-        changeStateButton(isEnable: false)  // Отключить кнопки после ответа
+            // Преобразование HEX-кодов в UIColor
+            let customGreen = UIColor(red: 0x60/255.0, green: 0xC2/255.0, blue: 0x8E/255.0, alpha: 1.0)  // Зеленый цвет #60C28E
+            let customRed = UIColor(red: 0xF5/255.0, green: 0x6B/255.0, blue: 0x6C/255.0, alpha: 1.0)    // Красный цвет #F56B6C
+
+            // Устанавливаем цвет рамки
+            imageView.layer.borderColor = isCorrect ? customGreen.cgColor : customRed.cgColor
+
+            changeStateButton(isEnable: false) // Отключить кнопки после ответа
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.imageView.layer.borderColor = UIColor.clear.cgColor  // Прозрачная рамка через 1 секунду
             self.changeStateButton(isEnable: true)  // Включить кнопки перед следующим вопросом
             self.showNextQuestionOrResults()
         }
@@ -166,7 +173,6 @@ final class MovieQuizViewController: UIViewController {
             showNextQuestion()
         }
     }
-
     private func showFinalResults() {
         let text = "Вы завершили викторину с результатом \(correctAnswers)/\(questions.count)"
         let resultViewModel = QuizResultsViewModel(
