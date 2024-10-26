@@ -9,7 +9,11 @@ final class StatisticService: StatisticServiceProtocol {
     private let storage = UserDefaults.standard
     
     private enum Keys: String {
+<<<<<<< HEAD
         case gamesCount, 
+=======
+        case gamesCount,
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
              bestGameCorrect,
              bestGameTotal,
              bestGameDate,

@@ -1,6 +1,7 @@
 import UIKit
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 // MARK: - Properties
@@ -23,6 +24,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var correctAnswers = 0
     private var alertPresenter: AlertPresenter?
     private var statisticService: StatisticServiceProtocol?
+=======
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
+    // MARK: - Properties
+    private var presenter: MovieQuizPresenter!
+    private var alertPresenter: AlertPresenter?
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
     
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var noButton: UIButton!
@@ -31,6 +38,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
     
+<<<<<<< HEAD
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,10 +113,52 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
 
     private func hideLoadingIndicator() {
+=======
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        alertPresenter = AlertPresenter(controller: self)
+        imageView.layer.cornerRadius = 20
+        imageView.layer.masksToBounds = true
+        
+        presenter = MovieQuizPresenter(viewController: self)
+    }
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        presenter.noButtonClicked()
+    }
+    
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        presenter.yesButtonClicked()
+    }
+    
+    func show(quiz step: QuizStepViewModel) {
+        imageView.image = step.image
+        textLabel.text = step.question
+        counterLabel.text = step.questionNumber
+    }
+    
+    func highlightImageBorder(isCorrectAnswer: Bool) {
+        imageView.layer.borderWidth = 8
+        imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+    }
+    
+    func hideImageBorder() {
+        imageView.layer.borderWidth = 0
+    }
+    
+    func showLoadingIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        view.bringSubviewToFront(activityIndicator)
+    }
+    
+    func hideLoadingIndicator() {
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }
     
+<<<<<<< HEAD
     // MARK: - Actions
 >>>>>>> 6996d3308e530aff7762777e39587a03be7175bd
     @IBAction private func noButtonClicked(_ sender: UIButton) {
@@ -311,12 +361,45 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
         }
+=======
+    func showNetworkError(message: String) {
+        let alertModel = AlertModel(
+            title: "Ошибка сети",
+            message: message,
+            buttonText: "Попробовать ещё раз",
+            completion: nil
+        )
+        showAlert(model: alertModel)
+    }
+    
+    func showAlert(model: AlertModel) {
+        let alert = UIAlertController(
+            title: model.title,
+            message: model.message,
+            preferredStyle: .alert
+        )
+        alert.view.accessibilityIdentifier = "Alert"
+        
+        let action = UIAlertAction(title: model.buttonText, style: .default) { _ in
+            model.completion?()
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func setButtonsEnabled(_ isEnabled: Bool) {
+        yesButton.isEnabled = isEnabled
+        noButton.isEnabled = isEnabled
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
     }
 }
 
 
 
+<<<<<<< HEAD
 >>>>>>> 6996d3308e530aff7762777e39587a03be7175bd
+=======
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
 /*
  Mock-данные
  
@@ -325,56 +408,101 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
  Настоящий рейтинг: 9,2
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: The Dark Knight
  Настоящий рейтинг: 9
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: Kill Bill
  Настоящий рейтинг: 8,1
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: The Avengers
  Настоящий рейтинг: 8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: Deadpool
  Настоящий рейтинг: 8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: The Green Knight
  Настоящий рейтинг: 6,6
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: Old
  Настоящий рейтинг: 5,8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: The Ice Age Adventures of Buck Wild
  Настоящий рейтинг: 4,3
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: Tesla
  Настоящий рейтинг: 5,1
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
+<<<<<<< HEAD
 
 
+=======
+ 
+ 
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
  Картинка: Vivarium
  Настоящий рейтинг: 5,8
  Вопрос: Рейтинг этого фильма больше чем 6?

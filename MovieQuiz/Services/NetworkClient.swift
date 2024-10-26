@@ -1,6 +1,10 @@
 import Foundation
 
+<<<<<<< HEAD
 struct NetworkClient {
+=======
+struct NetworkClient: NetworkRouting {
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
     private enum NetworkError: Error {
         case codeError
     }

@@ -6,7 +6,11 @@
 //
 
 import Foundation
+<<<<<<< HEAD
 import UIKit 
+=======
+import UIKit
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
 
 // Для состояния "Результат квиза"
 struct QuizResultsViewModel {

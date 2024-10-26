@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
 import Foundation
 
 protocol MoviesLoading {
@@ -5,6 +9,7 @@ protocol MoviesLoading {
 }
 
 struct MoviesLoader: MoviesLoading {
+<<<<<<< HEAD
     private let networkClient = NetworkClient()
     
     private var mostPopularMoviesUrl: URL {
@@ -14,6 +19,17 @@ struct MoviesLoader: MoviesLoading {
         return url
     }
     
+=======
+    private let networkClient: NetworkRouting
+    private let mostPopularMoviesUrl: URL
+
+    init(networkClient: NetworkRouting = NetworkClient(),
+         mostPopularMoviesUrl: URL = URL(string: "https://tv-api.com/en/API/Top250Movies/k_zcuw1ytf")!) {
+        self.networkClient = networkClient
+        self.mostPopularMoviesUrl = mostPopularMoviesUrl
+    }
+
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
     func loadMovies(handler: @escaping (Result<MostPopularMovies, Error>) -> Void) {
         networkClient.fetch(url: mostPopularMoviesUrl) { result in
             switch result {
@@ -30,3 +46,7 @@ struct MoviesLoader: MoviesLoading {
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4e6f38595fe571f5900ba578065e5cd2811bab8
